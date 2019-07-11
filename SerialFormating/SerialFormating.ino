@@ -43,10 +43,25 @@ void loop() {
     /// New Line
     Serial.println("New\n   Line");
     /// quotation mark
-    Serial.println("Arduio: \"There are quotes?!\"");
+    Serial.println("Arduino: \"There are quotes?!\"");
     /// back slash
-    Serial.println("¯\\_(..)_/¯");
+    Serial.println("*\\_(..)_/*");
     
+    // Wait a second before moving to next command.
+    delay(1000);
+    // Print a new line character
+    Serial.println();
+
+    // Here is examples of number formating
+    /// Limit printed decimal places
+    Serial.println(10.12345, 3);
+    /// Convert to decimal base
+    Serial.println(155, DEC);
+    /// Convert to binary base
+    Serial.println(155, BIN);
+    /// Convert to hexadecimal base
+    Serial.println(155, HEX);
+
     // Wait a second before moving to next command.
     delay(1000);
     // Print a new line character
