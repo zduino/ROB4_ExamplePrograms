@@ -16,5 +16,39 @@ void setup() {
 // after the setup has completed. The main program should
 // written here.
 void loop() {
+    // Print a single string and add a newline character
+    // at the end of the string.
+    Serial.println("Hello iD Tech Academies!");
+
+    // Wait a second before moving to next command.
+    delay(1000);
+    // Print a new line character
+    Serial.println();
+
+    // Print a string with out a new line character
+    Serial.print("This is how to put a number, ");
+    // Print a number with out a new line character
+    Serial.print(7);
+    // Print a string with a new line character
+    Serial.print(", mid line.");
+
+    // Wait a second before moving to next command.
+    delay(1000);
+    // Print a new line character
+    Serial.println();
+
+    // Here is examples of special characters
+    /// Tab
+    Serial.println("\tTabbed line.");
+    /// New Line
+    Serial.println("New\n   Line");
+    /// quotation mark
+    Serial.println("Arduio: \"There are quotes?!\"");
+    /// back slash
+    Serial.println("¯\\_(..)_/¯");
     
+    // Wait a second before moving to next command.
+    delay(1000);
+    // Print a new line character
+    Serial.println();
 }
