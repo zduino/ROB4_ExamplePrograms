@@ -4,7 +4,7 @@
  * Date: July 10, 2019
  */
 
-// Define pins
+// Define Pins
 #define NS_LED_RED_PIN                6
 #define NS_LED_YLW_PIN                5
 #define NS_LED_GRN_PIN                4
@@ -19,7 +19,7 @@
 
 #define PHOTO_RESISTOR               A0
 
-// Define states
+// Define States
 #define S_NS_STOP                     0
 #define S_NS_GO                       1
 #define S_NS_CAUTION                  2
@@ -34,20 +34,25 @@
 
 #define S_NS_NIGHT_MODE              10
 #define S_EW_NIGHT_MODE              11
+
 // Global Variables
-int LastState;
-int CurrentState;
-int NextState;
-unsigned long nextStateChange = 0;
+int LastState;                       // Remembers previous state that was run
+int CurrentState;                    // The current state the machine is running
+int NextState;                       // The next state the machine will run
+unsigned long nextStateChange = 0;   // The time till the next state change
 
-bool NS_Crosswalk_Requested = false;
-bool EW_Crosswalk_Requested = false;
+bool NS_Crosswalk_Requested = false; // Event flag for crosswalk state
+bool EW_Crosswalk_Requested = false; // Event flag for crosswalk state
 
-bool Night_Mode_Requested = false;
+bool Night_Mode_Requested = false;   // Event flag for night mode state
 
-unsigned long CrosswalkFlashStart;
+unsigned long CrosswalkFlashStart;   // The start time of the crosswalk flashing
 
+
+// The setup routine
 void setup() {
+
+    // Set all pin modes
     pinMode(NS_LED_RED_PIN, OUTPUT);
     pinMode(NS_LED_YLW_PIN, OUTPUT);
     pinMode(NS_LED_GRN_PIN, OUTPUT);
@@ -62,6 +67,7 @@ void setup() {
 
     pinMode(PHOTO_RESISTOR, INPUT);
 
+    // Init state machine state placeholders
     LastState = -1;
     CurrentState = S_NS_STOP;
     NextState = -1;
@@ -69,6 +75,7 @@ void setup() {
 
 void loop() {
     // Collect sensor data
+    // Test crosswalk buttons
     if (digitalRead(NS_BTN_PIN)) {
         NS_Crosswalk_Requested = true;
     }
@@ -76,6 +83,7 @@ void loop() {
         EW_Crosswalk_Requested = true;
     }
 
+    // Test photo resistor light level
     if (analogRead(PHOTO_RESISTOR) < 350) {
         Night_Mode_Requested = true;
     }
@@ -134,11 +142,12 @@ void loop() {
             break;
     }
 
-    // Updates state changes
+    // Updates state placeholders for next loop
     LastState = CurrentState;
     CurrentState = NextState;
 }
 
+// Both ways red
 void NS_Stop() {
     // Do initial state task here:
     if (CurrentState != LastState) {
@@ -171,6 +180,8 @@ void NS_Stop() {
     }
 }
 
+
+// North/South green
 void NS_Go() {
     // Do initial state task here:
     if (CurrentState != LastState) {
@@ -196,6 +207,7 @@ void NS_Go() {
     }
 }
 
+// North/South yellow
 void NS_Caution() {
     // Do initial state task here:
     if (CurrentState != LastState) {
@@ -221,6 +233,7 @@ void NS_Caution() {
     }
 }
 
+// Both ways red
 void EW_Stop() {
     // Do initial state task here:
     if (CurrentState != LastState) {
@@ -253,6 +266,7 @@ void EW_Stop() {
     }
 }
 
+// East/Wess green
 void EW_Go() {
     // Do initial state task here:
     if (CurrentState != LastState) {
@@ -278,6 +292,7 @@ void EW_Go() {
     }
 }
 
+// East/West yellow
 void EW_Caution() {
     // Do initial state task here:
     if (CurrentState != LastState) {
@@ -303,6 +318,7 @@ void EW_Caution() {
     }
 }
 
+// North/South green with crosswalk
 void NS_Go_Cross() {
     // Do initial state task here:
     if (CurrentState != LastState) {
@@ -328,6 +344,7 @@ void NS_Go_Cross() {
     }
 }
 
+// North/South green with blinking crosswalk
 void NS_Go_Yield() {
     // Do initial state task here:
     if (CurrentState != LastState) {
@@ -354,6 +371,7 @@ void NS_Go_Yield() {
     }
 }
 
+// East/West green with crosswalk
 void EW_Go_Cross() {
     // Do initial state task here:
     if (CurrentState != LastState) {
@@ -379,6 +397,7 @@ void EW_Go_Cross() {
     }
 }
 
+// East/West green with blinking crosswalk
 void EW_Go_Yield() {
     // Do initial state task here:
     if (CurrentState != LastState) {
@@ -405,6 +424,7 @@ void EW_Go_Yield() {
     }
 }
 
+// Both ways blinking
 void NS_Night_Mode() {
     // Do initial state task here:
     if (CurrentState != LastState) {
@@ -430,6 +450,7 @@ void NS_Night_Mode() {
     }
 }
 
+// Both ways blinking
 void EW_Night_Mode() {
     // Do initial state task here:
     if (CurrentState != LastState) {
