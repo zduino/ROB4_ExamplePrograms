@@ -42,8 +42,12 @@ void loop() {
     // blink plus the duration of the blink
     if (millis() > LastBlink + BLINK_DURATION) {
         // Set the LED state to the opposite of its current 
-        // state.
+        // state using the boolean not operator.
         LED_State = not LED_State;
+        // "LED_State != LED_State;" and
+        // "LED_State = !LED_State;" are also valid
+        // alternatives to write.
+
         // Set the LastBlink time to the current time to 
         // restart the blink timer
         LastBlink = millis();
