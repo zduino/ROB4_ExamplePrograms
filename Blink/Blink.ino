@@ -7,6 +7,7 @@
 // Define "LED_PIN" as the number 13 to make the
 // code easier to read. The text gets replaced by
 // the complier so no variable is used at runtime.
+// (TIP~ think of using #define as making a label)
 #define LED_PIN              13
 
 // Setup is a built in function that gets called once
@@ -30,5 +31,4 @@ void loop() {
     // Have the arduino wait 1000 milliseconds before moving
     // to the next command.
     delay(1000);
-
 }
