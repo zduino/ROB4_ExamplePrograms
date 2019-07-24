@@ -1,0 +1,18 @@
+        INP
+        STA A
+        STA B
+LOOP    LDA SUM
+        ADD X
+        STA SUM
+        LDA Y
+        SUB ONE
+        STA Y
+        BRZ END
+        BRA LOOP
+END     LDA Y
+        OUT
+        HLT
+X       DAT 0
+Y       DAT 0
+SUM     DAT 0
+ONE     DAT 1
